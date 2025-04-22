@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Tracker API - Документация</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        .section {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .endpoint {
+            border-left: 4px solid #3498db;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #f8f9fa;
+        }
+        .method {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .get { background-color: #61affe; color: white; }
+        .post { background-color: #49cc90; color: white; }
+        .put { background-color: #fca130; color: white; }
+        .delete { background-color: #f93e3e; color: white; }
+        .description {
+            margin: 5px 0;
+            color: #555;
+        }
+        .auth-required {
+            color: #e74c3c;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Time Tracker API</h1>
+    
+    <div class="section">
+        <h2>Аутентификация</h2>
+        <div class="endpoint">
+            <span class="method post">POST</span>
+            <code>/api/auth/register</code>
+            <div class="description">Регистрация нового пользователя</div>
+        </div>
+        <div class="endpoint">
+            <span class="method post">POST</span>
+            <code>/api/auth/login</code>
+            <div class="description">Вход пользователя и получение токена</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Проекты</h2>
+        <div class="endpoint">
+            <span class="method get">GET</span>
+            <code>/api/projects</code>
+            <div class="description">Получение списка всех проектов</div>
+            <div class="auth-required">Требуется JWT токен</div>
+        </div>
+        <div class="endpoint">
+            <span class="method post">POST</span>
+            <code>/api/projects</code>
+            <div class="description">Создание нового проекта</div>
+            <div class="auth-required">Требуется JWT токен</div>
+        </div>
+        <div class="endpoint">
+            <span class="method get">GET</span>
+            <code>/api/projects/{id}</code>
+            <div class="description">Получение информации о конкретном проекте</div>
+            <div class="auth-required">Требуется JWT токен</div>
+        </div>
+        <div class="endpoint">
+            <span class="method put">PUT</span>
+            <code>/api/projects/{id}</code>
+            <div class="description">Обновление информации о проекте</div>
+            <div class="auth-required">Требуется JWT токен</div>
+        </div>
+        <div class="endpoint">
+            <span class="method delete">DELETE</span>
+            <code>/api/projects/{id}</code>
+            <div class="description">Удаление проекта</div>
+            <div class="auth-required">Требуется JWT токен</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Учет времени</h2>
+        <div class="endpoint">
+            <span class="method get">GET</span>
+            <code>/api/time-entries</code>
+            <div class="description">Получение списка записей времени пользователя</div>
+            <div class="auth-required">Требуется JWT токен</div>
+        </div>
+        <div class="endpoint">
+            <span class="method post">POST</span>
+            <code>/api/time-entries</code>
+            <div class="description">Создание новой записи времени</div>
+            <div class="auth-required">Требуется JWT токен</div>
+        </div>
+        <div class="endpoint">
+            <span class="method get">GET</span>
+            <code>/api/time-entries/{id}</code>
+            <div class="description">Получение информации о конкретной записи времени</div>
+            <div class="auth-required">Требуется JWT токен</div>
+        </div>
+        <div class="endpoint">
+            <span class="method put">PUT</span>
+            <code>/api/time-entries/{id}</code>
+            <div class="description">Обновление записи времени</div>
+            <div class="auth-required">Требуется JWT токен</div>
+        </div>
+        <div class="endpoint">
+            <span class="method delete">DELETE</span>
+            <code>/api/time-entries/{id}</code>
+            <div class="description">Удаление записи времени</div>
+            <div class="auth-required">Требуется JWT токен</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Отчеты</h2>
+        <div class="endpoint">
+            <span class="method get">GET</span>
+            <code>/api/reports/project/{project_id}</code>
+            <div class="description">Получение отчета по проекту за период</div>
+            <div class="auth-required">Требуется JWT токен и права менеджера</div>
+            <div class="description">Параметры запроса: start_date, end_date (формат: YYYY-MM-DD)</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Swagger UI</h2>
+        <div class="endpoint">
+            <span class="method get">GET</span>
+            <code>/</code>
+            <div class="description">Интерактивная документация API (Swagger UI)</div>
+        </div>
+    </div>
+</body>
+</html> 
