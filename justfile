@@ -1,36 +1,46 @@
-# Project management commands
-set dotenv-load := true
-set shell := ["powershell.exe", "-Command"]
+# List available commands
+default:
+    @just --list
 
-# Start the application
+# Set up and run the project
 up:
-    @echo "Starting the application..."
+    python -m venv venv
+    . venv/bin/activate
+    pip install -r requirements.txt
+    flask init-db
     flask run
 
 # Run tests
 test:
-    @echo "Running tests..."
     pytest
 
 # Run linters
 lint:
-    @echo "Running linters..."
     flake8 .
-    black . --check
-    isort . --check-only
-
-# Format code
-format:
-    @echo "Formatting code..."
     black .
     isort .
 
-# Install dependencies
-install:
-    @echo "Installing dependencies..."
-    pip install -r requirements.txt
+# Format code
+format:
+    black .
+    isort .
 
-# Initialize database
-init-db:
-    @echo "Initializing database..."
-    flask init-db 
+# Clean up python cache files
+clean:
+    find . -type d -name "__pycache__" -exec rm -r {} +
+    find . -type f -name "*.pyc" -delete
+    find . -type f -name "*.pyo" -delete
+    find . -type f -name "*.pyd" -delete
+    find . -type f -name ".coverage" -delete
+    find . -type d -name "*.egg-info" -exec rm -r {} +
+    find . -type d -name "*.egg" -exec rm -r {} +
+    find . -type d -name ".pytest_cache" -exec rm -r {} +
+    find . -type d -name ".tox" -exec rm -r {} +
+    find . -type d -name ".eggs" -exec rm -r {} +
+
+# Install pre-commit hooks
+setup-hooks:
+    pre-commit install
+
+# Run all checks (tests and linting)
+check: test lint 
